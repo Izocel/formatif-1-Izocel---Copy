@@ -1,4 +1,4 @@
 .vs/
 .history/
-.config/settings.php
+config/settings.php
 /vendor
