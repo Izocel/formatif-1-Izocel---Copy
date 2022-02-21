@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Action\Epreuve;
+namespace App\Action\Resultat;
 
-use App\Domain\Epreuve\Service\EpreuveView;
+use App\Domain\Resultat\Service\ResultatView;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use stdClass;
 
-final class EpreuveViewAction
+final class ResultatAddAction
 {
-    private $epreuveView;
+    private $resultatView;
 
-    public function __construct(EpreuveView $epreuveView)
+    public function __construct(ResultatView $resultatView)
     {
-        $this->epreuveView = $epreuveView;
+        $this->resultatView = $resultatView;
     }
 
     public function __invoke(
@@ -22,17 +22,17 @@ final class EpreuveViewAction
     ): ResponseInterface {
 
         $rqstObj = new stdClass;
-        $possibleAtts = ['id'];
+        $possibleAtts = [];
 
-        $rqstObj->body = $request->getParsedBody();
+        $rqstObj->body = (object)$request->getParsedBody();
         $rqstObj->params = $request->getQueryParams();
 
         foreach ($possibleAtts as $key => $value) {
             $rqstObj->atts->$value .= $request->getAttribute($value);
         }
         
-        $epreuves = $this->epreuveView->viewEpreuve($rqstObj);
-        $response->getBody()->write((string)json_encode($epreuves));
+        $resultats = $this->resultatView->addResultat($rqstObj);
+        $response->getBody()->write((string)json_encode($resultats));
 
         return $response->withHeader('Content-Type', 'application/json');
     }

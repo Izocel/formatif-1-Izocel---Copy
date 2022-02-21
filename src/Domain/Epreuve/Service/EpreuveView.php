@@ -5,6 +5,7 @@ namespace App\Domain\Epreuve\Service;
 use App\Domain\Epreuve\Repository\EpreuveViewRepository;
 use App\Factory\LoggerFactory;
 use Psr\Log\LoggerInterface;
+use stdClass;
 
 /**
  * Service.
@@ -40,12 +41,16 @@ final class EpreuveView
      *
      * @return array Un tableau de toutes les épreuves
      */
-    public function viewEpreuve(): array
+    public function viewEpreuve(object $rqstObj): array
     {
-        $books = $this->repository->selectAllEpreuve();
+        if($rqstObj->atts->id){
+            $epreuves = $this->repository->selectEpreuve($rqstObj->atts->id);
+        }
+        else {
+            $epreuves = $this->repository->selectAllEpreuve();
+        }
+        $this->logger->info("Ce n'est surtout pas un exemple de comment logger un message. LOL");
 
-        $this->logger->info("Ce n'est surtout pas un exemple de comment logger un message");
-
-        return $books;
+        return $epreuves;
     }
 }

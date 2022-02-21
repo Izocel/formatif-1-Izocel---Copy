@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Domain\Epreuve\Repository;
+namespace App\Domain\Athlete\Repository;
 
 use PDO;
 
 /**
  * Repository.
  */
-class EpreuveViewRepository
+class AthleteViewRepository
 {
     /**
      * @var PDO The database connection
@@ -25,11 +25,11 @@ class EpreuveViewRepository
     }
 
     /**
-     * Sélection de toutes les épreuves
+     * Sélection de tous les athlete
      */
-    public function selectAllEpreuve(): array
+    public function selectAllAthlete(): array
     {
-        $sql = "SELECT * FROM epreuve";
+        $sql = "SELECT * FROM athletes";
 
         $query = $this->connection->prepare($sql);
         $query->execute();
@@ -40,16 +40,16 @@ class EpreuveViewRepository
     }
 
     /**
-     * Sélection d'une épreuve selon son id
+     * Sélection d'un athlete selon son id
      */
-    public function selectEpreuve(int $id): array
+    public function selectAthlete(int $id): array
     {
 
         $id = (int)$id ?? 0;
         
         $params = [ "id" => $id];
         
-        $sql = "SELECT * FROM epreuve WHERE id = :id";
+        $sql = "SELECT * FROM athletes WHERE id = :id";
 
         $query = $this->connection->prepare($sql);
         $query->execute($params);

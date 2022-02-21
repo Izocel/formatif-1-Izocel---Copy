@@ -25,3 +25,6 @@ paths:
                 example:
                     message : 'Bon examen à tous!!'
   
+
+
+  // FIXME: Ajouter les schéma et def. rqst et resp, pour athletes

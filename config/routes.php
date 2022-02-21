@@ -21,19 +21,25 @@ return function (App $app) {
     });
 
     /**
-     * POST         Insertion d'un résultats
-     * 
-     */
-    $app->group('/resultats', function (RouteCollectorProxy $group) {
-        $group->post('', \App\Action\Epreuve\EpreuveViewAction::class);
-    });
-
-    /**
-     * /id    PUT     Modification d'un athlete
+     * /        GET     Sélection de tous les athlete + body(queryFilter)
+     * /id      GET	    Selection d'un athlete
+     * /id      PUT     Modification d'un athlete
      * 
      */
     $app->group('/athletes', function (RouteCollectorProxy $group) {
-        $group->put('/{id:[0-9]+}', \App\Action\Epreuve\EpreuveViewAction::class);
+        $group->get('', \App\Action\Athlete\AthleteViewAction::class);
+        $group->get('/{id:[0-9]+}', \App\Action\Athlete\AthleteViewAction::class);
+        $group->put('/{id:[0-9]+}', \App\Action\Athlete\AthleteViewAction::class);
+    });
+
+    
+    /**
+     * POST         Insertion d'un résultats
+     */
+    $app->group('/resultats', function (RouteCollectorProxy $group) {
+        $group->get('', \App\Action\Resultat\ResultatViewAction::class);
+        $group->get('/{id:[0-9]+}', \App\Action\Resultat\ResultatViewAction::class);
+        $group->post('', \App\Action\Resultat\ResultatAddAction::class);
     });
 };
 

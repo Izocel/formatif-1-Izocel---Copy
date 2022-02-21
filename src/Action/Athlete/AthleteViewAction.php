@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Action\Epreuve;
+namespace App\Action\Athlete;
 
-use App\Domain\Epreuve\Service\EpreuveView;
+use App\Domain\Athlete\Service\AthleteView;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use stdClass;
 
-final class EpreuveViewAction
+final class AthleteViewAction
 {
-    private $epreuveView;
+    private $athleteView;
 
-    public function __construct(EpreuveView $epreuveView)
+    public function __construct(AthleteView $athleteView)
     {
-        $this->epreuveView = $epreuveView;
+        $this->athleteView = $athleteView;
     }
 
     public function __invoke(
@@ -31,8 +31,8 @@ final class EpreuveViewAction
             $rqstObj->atts->$value .= $request->getAttribute($value);
         }
         
-        $epreuves = $this->epreuveView->viewEpreuve($rqstObj);
-        $response->getBody()->write((string)json_encode($epreuves));
+        $athletes = $this->athleteView->viewAthlete($rqstObj);
+        $response->getBody()->write((string)json_encode($athletes));
 
         return $response->withHeader('Content-Type', 'application/json');
     }
